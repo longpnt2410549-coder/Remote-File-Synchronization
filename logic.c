@@ -2,25 +2,24 @@
 #include <string.h>
 #include "common.h"
 
+// logic.c
 void compare_and_diff(FileMeta *client_list, int client_count, 
-                      FileMeta *server_list, int server_count) {
+                      FileMeta *server_list, int server_count, int dry_run) {
     
-    printf("Comparing metadata with server ...\n\n");
-    printf("Changes detected:\n");
+    if (dry_run) printf("--- DRY RUN MODE: No files will be changed ---\n");
 
-    // 1. Check Client files against Server
     for (int i = 0; i < client_count; i++) {
         int found = 0;
         for (int j = 0; j < server_count; j++) {
             if (strcmp(client_list[i].filename, server_list[j].filename) == 0) {
                 found = 1;
-                if (client_list[i].mtime > server_list[j].mtime) {
-                    printf("[UP] UPLOAD %s (locally modified)\n", client_list[i].filename);
-                } else if (client_list[i].mtime < server_list[j].mtime) {
-                    // This covers the "newer on server" case
-                    printf("[DN] DOWNLOAD %s (newer on server)\n", client_list[i].filename);
+                // CONFLICT DETECTION BONUS
+                // If both are modified but size is different or mtime is very close, 
+                // you can flag it as a conflict.
+                if (client_list[i].mtime != server_list[j].mtime) {
+                    printf("[!] CONFLICT: %s exists on both with different timestamps!\n", client_list[i].filename);
                 } else {
-                    printf("[=]  SKIP %s (identical)\n", client_list[i].filename);
+                    printf("[=] SKIP %s (identical)\n", client_list[i].filename);
                 }
                 break;
             }
@@ -30,7 +29,7 @@ void compare_and_diff(FileMeta *client_list, int client_count,
         }
     }
 
-    // 2. Check for files that exist on Server but NOT on Client (Deletions)
+    //Check for files that exist on Server but NOT on Client (Deletions)
     for (int j = 0; j < server_count; j++) {
         int found = 0;
         for (int i = 0; i < client_count; i++) {

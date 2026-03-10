@@ -4,7 +4,9 @@
 
 #include <stdint.h>
 
+#ifndef MAX_PATH
 #define MAX_PATH 256
+#endif
 
 typedef enum {
     MSG_METADATA_LIST,

@@ -1,8 +1,21 @@
-// common.c
-#include <dirent.h>
-#include <sys/stat.h>
-#include <string.h>
-#include "common.h"
+#include <stdio.h>     // For snprintf
+#include <winsock2.h>
+#include <dirent.h>    // For opendir/readdir
+#include <sys/stat.h>  // For stat
+#include <string.h>    // For strncpy
+#include "common.h"    // For FileMeta definition
+
+void send_file(int socket, char *path) {
+    FILE *f = fopen(path, "rb");
+    if (!f) return;
+
+    char buffer[4096];
+    int bytes_read;
+    while ((bytes_read = fread(buffer, 1, sizeof(buffer), f)) > 0) {
+        send(socket, buffer, bytes_read, 0);
+    }
+    fclose(f);
+}
 
 int get_local_metadata(const char *dir_path, FileMeta *list) {
     DIR *d = opendir(dir_path);
