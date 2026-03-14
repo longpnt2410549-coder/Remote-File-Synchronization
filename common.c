@@ -4,6 +4,7 @@
 #include <sys/stat.h>  // For stat
 #include <string.h>    // For strncpy
 #include "common.h"    // For FileMeta definition
+#include <shellapi.h>
 
 void send_file(int socket, char *path) {
     FILE *f = fopen(path, "rb");
@@ -41,4 +42,27 @@ int get_local_metadata(const char *dir_path, FileMeta *list) {
     }
     closedir(d);
     return count;
+}
+
+void receive_file(int socket, MsgHeader header) {
+    char buffer[4096];
+    FILE *f = fopen(header.filename, "wb"); // Open for Writing in Binary
+    if (!f) return;
+
+    uint32_t bytes_received = 0;
+    while (bytes_received < header.payload_size) {
+        int expected = (header.payload_size - bytes_received < 4096) ? 
+                        header.payload_size - bytes_received : 4096;
+        
+        int n = recv(socket, buffer, expected, 0);
+        if (n <= 0) break;
+        
+        fwrite(buffer, 1, n, f);
+        bytes_received += n;
+    }
+    fclose(f);
+    printf("Successfully downloaded %s (%u bytes)\n", header.filename, header.payload_size);
+    
+    // Bonus: Open it automatically (Windows specific)
+    ShellExecuteA(NULL, "open", header.filename, NULL, NULL, SW_SHOWNORMAL);
 }
