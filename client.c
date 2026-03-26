@@ -9,6 +9,10 @@
 #pragma comment(lib, "ws2_32.lib")
 
 int main(int argc, char *argv[]) {
+    int dry_run = 0;
+    int watch_interval = 0;
+    char batch_buffer[8192] = {0}; 
+    char input[256];
     // Fix loi tham so dau vao
     if (argc < 2) {
         printf("Cach dung: %s <server_ip>\n", argv[0]);
@@ -39,31 +43,53 @@ int main(int argc, char *argv[]) {
         printf("CONNECTED to %s\n", argv[1]);
         
         // --- ĐOẠN CODE TEST BẮN DỮ LIỆU ---
-        char test_msg[] = "DOWNLOAD test.txt\n";
-        send(sock, test_msg, strlen(test_msg), 0);
-            // After sending the request...
-MsgHeader response_header;
-int n = recv(sock, (char*)&response_header, sizeof(MsgHeader), 0);
+// ... after connection success ...
 
-if (n > 0 && response_header.type == MSG_FILE_CONTENT) {
-    receive_file(sock, response_header);
-}
-        printf("Da gui lenh test: %s\n", test_msg);
-        // ----------------------------------
-    }
-
-    int dry_run = 0;
-    int watch_interval = 0;
-
-    for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "--dry-run") == 0) dry_run = 1;
-        if (strcmp(argv[i], "--watch") == 0 && i + 1 < argc) {
-            watch_interval = atoi(argv[i+1]);
-        }
-    }
+char batch_buffer[8192] = {0}; 
+char input[256];
 
 do {
-    printf("\n--- Starting Sync ---\n");
+    printf("\n[BATCH MODE] Type 'SYNC' to send, 'FILE' to load script, or enter a command:\n> ");
+    
+    // Clear the input buffer each time
+    if (fgets(input, sizeof(input), stdin) == NULL) break;
+
+    // 1. FILE SCRIPTING MODE
+    if (strncmp(input, "FILE", 4) == 0) {
+        FILE *f = fopen("commands.txt", "r");
+        if (f) {
+            memset(batch_buffer, 0, sizeof(batch_buffer));
+            fread(batch_buffer, 1, sizeof(batch_buffer), f);
+            fclose(f);
+            send(sock, batch_buffer, strlen(batch_buffer), 0);
+            printf("[System] Script sent.\n");
+        } else {
+            printf("[Error] commands.txt not found!\n");
+        }
+    } 
+    // 2. TRIGGER SYNC (SEND BATCH)
+    else if (strncmp(input, "SYNC", 4) == 0) {
+        if (strlen(batch_buffer) > 0) {
+            send(sock, batch_buffer, strlen(batch_buffer), 0);
+            memset(batch_buffer, 0, sizeof(batch_buffer)); // Clear for next batch
+            
+            // Wait for Server Response
+            MsgHeader response_header;
+            int n = recv(sock, (char*)&response_header, sizeof(MsgHeader), 0);
+            if (n > 0 && response_header.type == MSG_FILE_CONTENT) {
+                receive_file(sock, response_header);
+            }
+        } else {
+            printf("[!] Batch is empty. Type some commands first!\n");
+        }
+    } 
+    // 3. ADD TO BATCH
+    else {
+        strcat(batch_buffer, input); 
+        printf("   (Queued: %s)", input);
+    }
+
+} while (watch_interval >= 0); // Changed to >= 0 so it stays open for manual input
     
     // ... your existing code to send the request ...
 
