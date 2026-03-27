@@ -24,12 +24,12 @@ int server_file_count = 0;
 long server_file_size = 0;
 long server_file_mtime = 0;
 FILE *log_file = NULL;
-int SKIP = 0;
-int UPLOAD = 0;
-int UPDATE = 0;
-int DOWNLOAD = 0;
-int Del = 0;
-int ERR = 0;
+int download;
+int upload;
+int update;
+int unchanged;
+int delete;
+
 // --- HỆ THỐNG BẮT LỖI CHỐNG VĂNG APP ---
 void crash_handler(int sig) // hàm test xem có lỗi không
 {
@@ -157,7 +157,7 @@ int delete_file(const char *filename, SOCKET client_fd)
 }
 
 // Hàm xử lý lệnh (Đã sửa int client_fd thành SOCKET client_fd cho chuẩn Windows)
-int compare(char *temp, SOCKET client_fd, int i)
+void compare(char *temp, SOCKET client_fd, int i)
 {
     char request[256] = {0};
     char file_name[256] = {0};
@@ -204,6 +204,7 @@ int compare(char *temp, SOCKET client_fd, int i)
                 break;
         }
         write_log(client_fd, "[+] Hoan tat lenh DOWNLOAD: %s\n", file_name);
+        download++;
         write_log(client_fd,"OK");
         fclose(fp);
     }
@@ -215,7 +216,6 @@ int compare(char *temp, SOCKET client_fd, int i)
         if (fp == NULL)
         {
             write_log(client_fd, "[-] Loi: Khong tim thay file %s.\n", file_name);
-            ERR ++;
             return;
         }
 
@@ -224,12 +224,11 @@ int compare(char *temp, SOCKET client_fd, int i)
         if (remove(path) == 0)
         {
             write_log(client_fd, "[+] Da xoa file thanh cong!\n");
-            Del++;
+            delete++;
         }
         else
         {
             write_log(client_fd, "[-] Xoa file that bai!\n");
-            ERR ++;
         }
     }
     // ================= 3. UPLOAD & UPDATE  =================
@@ -243,7 +242,6 @@ int compare(char *temp, SOCKET client_fd, int i)
         if (!fp)
         {
             write_log(client_fd, "[-] Khong the tao file tam\n");
-            ERR ++;
             return;
         }
 
@@ -280,12 +278,11 @@ int compare(char *temp, SOCKET client_fd, int i)
                     delete_file(path, client_fd);
                     rename(temp_path, path);
                     write_log(client_fd, "[+] Da cap nhat file thanh cong!\n");
-                    UPDATE ++;
+                    update++;
                 }
                 else
                 {
                     write_log(client_fd, "[=] File cu hoac y het -> Bo qua khong cap nhat\n");
-                    SKIP++;
                     delete_file(temp_path, client_fd); // Nhớ xoá file tạm
                 }
                 fclose(fp);
@@ -293,7 +290,7 @@ int compare(char *temp, SOCKET client_fd, int i)
             else // Lệnh UPLOAD nhưng file đã có
             {
                 write_log(client_fd, "[-] File da ton tai. Vui long dung lenh UPDATE\n");
-                ERR++;
+                unchanged++;
                 delete_file(temp_path, client_fd);
             }
             fclose(fp);
@@ -304,21 +301,17 @@ int compare(char *temp, SOCKET client_fd, int i)
             {
                 rename(temp_path, path);
                 write_log(client_fd, "[+] Hoan tat luu file: %s!\n", file_name);
-                UPLOAD++;
+                upload++;
                 fclose(fp);
             }
             else // Lệnh UPDATE nhưng chưa có file
             {
                 write_log(client_fd, "[-] File %s khong ton tai de UPDATE!!\n", file_name);
-                ERR++;
+                unchanged++;
                 delete_file(temp_path, client_fd);
             }
         }
     }
-    else{
-        write_log(client_fd, "[-] Lenh %s khong dung!!\n", request);
-    }
-    
 }
 void receive_request(SOCKET client_fd)
 {
@@ -327,7 +320,11 @@ void receive_request(SOCKET client_fd)
     int temp_len = 0;
     int i = 0;
     int bytes;
-
+    upload=0;
+    update=0;
+    download=0;
+    upload=0;
+    unchanged=0;
 
     while ((bytes = recv(client_fd, buffer, sizeof(buffer), 0)) > 0)
     {
@@ -350,17 +347,14 @@ void receive_request(SOCKET client_fd)
 
             if (line > temp && *(line - 1) == '\r')
                 *(line - 1) = '\0';
-            if (compare(temp, client_fd, i) == 0){
-                
-            }
+            compare(temp, client_fd, i);
             int remaining = temp_len - (line - temp + 1);
             memmove(temp, line + 1, remaining);
             temp_len = remaining;
             temp[temp_len] = '\0';
         }
+        write_log(client_fd,"Files change: Download %d | Upload %d | Update %d | Delete %d.\n Files unchanged: %d \n",download,upload,update,delete,unchanged);
     }
-printf("Sync complete: ");
-    write_log(client_fd,"%d UPLOADED ,%d UPDATED ,%d DOWNLOADED ,%d ERROR ,%d SKIPPED ,%d DELETED ",UPLOAD,UPDATE,DOWNLOAD,ERR,SKIP,Del);
     write_log(client_fd, "Client disconnected\n");
 }
 
@@ -445,6 +439,7 @@ int main()
             write_log(client_fd, "\n>>> CLIENT CONNECTED! <<<\n");
             scan_server_directory(client_fd);
             receive_request(client_fd);
+
         }
         closesocket(client_fd);
         // write_log(client_fd, "<<< Client da ngat ket noi. >>>\n\n");
