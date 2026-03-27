@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
                 fseek(fp, 0, SEEK_SET);
             }
 
-            if (strcmp(test_msg, "UPLOAD") == 0 || strcmp(test_msg, "UPDATE") == 0 )
+            if (strcmp(test_msg, "UPLOAD") == 0 || strcmp(test_msg, "UPDATE") == 0)
             {
                 status = 1;
             }
@@ -128,6 +128,7 @@ int main(int argc, char *argv[])
             {
                 // 1. Chờ server xác nhận READY để tránh dính chùm lệnh và dữ liệu
                 char ack[256];
+                int check = 0;
                 int r = recv(sock, ack, sizeof(ack) - 1, 0);
                 if (r > 0)
                 {
@@ -138,33 +139,36 @@ int main(int argc, char *argv[])
                 if (!fp)
                 {
                     printf("Khong mo duoc file\n");
-                    return 1;
+                    check = 1;
+                    receive(sock);
+                    receive(sock);
+
                 }
-
-                char buf[1024];
-                int n;
-
-                while ((n = fread(buf, 1, sizeof(buf), fp)) > 0)
+                if (!check)
                 {
-                    send(sock, buf, n, 0);
+                    char buf[1024];
+                    int n;
+
+                    while ((n = fread(buf, 1, sizeof(buf), fp)) > 0)
+                    {
+                        send(sock, buf, n, 0);
+                    }
+
+                    fclose(fp);
+                    printf("[+] Da gui xong du lieu file. Dang cho server xu ly...\n");
+
+                    // 2. BÁO SERVER ĐÃ GỬI XONG: Đóng đường gửi, nhưng VẪN MỞ đường nhận
+
+                    // 3. NHẬN TRẠNG THÁI TỪ SERVER TRẢ VỀ RỒI MỚI THOÁT
+                    r = recv(sock, ack, sizeof(ack) - 1, 0);
+                    if (r > 0)
+                    {
+                        ack[r] = '\0';
+                        printf("%s", ack);
+                    }
+
                 }
-
-                fclose(fp);
-                printf("[+] Da gui xong du lieu file. Dang cho server xu ly...\n");
-
-                // 2. BÁO SERVER ĐÃ GỬI XONG: Đóng đường gửi, nhưng VẪN MỞ đường nhận
-
-                // 3. NHẬN TRẠNG THÁI TỪ SERVER TRẢ VỀ RỒI MỚI THOÁT
-                r = recv(sock, ack, sizeof(ack) - 1, 0);
-                if (r > 0)
-                {
-                    ack[r] = '\0';
-                    printf("%s", ack);
-                    
-                }
-
-                receive(sock);
-
+                                    receive(sock);
             }
             // ===== DOWNLOAD =====
             else
@@ -195,15 +199,14 @@ int main(int argc, char *argv[])
 
             if (strcmp(test_msg, "DOWNLOAD") == 0)
             {
-
             }
-            
+
             receive(sock);
             cmd = strtok(NULL, "\n"); // Đừng quên dòng này để lấy lệnh tiếp theo
         }
-                                receive(sock);
+        receive(sock);
         WSACleanup();
         return 0; // This is the final bracket for main
     }
-                        receive(sock);
+    receive(sock);
 }

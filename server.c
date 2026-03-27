@@ -236,7 +236,7 @@ void compare(char *temp, SOCKET client_fd, int i)
     else if ((strcmp(request, "UPLOAD") == 0 || strcmp(request, "UPDATE") == 0))
     {
         // 1. Gửi tín hiệu READY để Client bắt đầu ném file qua
-        send(client_fd, "READY\n", 6, 0);
+        send(client_fd, "", 6, 0);
 
         snprintf(temp_path, sizeof(temp_path), "%s%s.tmp", SERVER_DIR, file_name);
         FILE *fp = fopen(temp_path, "wb");
@@ -319,7 +319,7 @@ void compare(char *temp, SOCKET client_fd, int i)
             }
         }
     }
-    write_log(client_fd, "Files change: Download %d | Upload %d | Update %d | Delete %d.\n Files unchanged: %d \n", download, upload, update, delete, unchanged);
+    write_log(client_fd, "Files change: Download %d | Upload %d | Update %d | Delete %d.\nFiles unchanged: %d \n", download, upload, update, delete, unchanged);
 }
 void receive_request(SOCKET client_fd)
 {
