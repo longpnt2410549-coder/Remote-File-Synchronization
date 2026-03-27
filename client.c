@@ -107,12 +107,10 @@ int main(int argc, char *argv[])
                 filesize = ftell(fp);
                 fseek(fp, 0, SEEK_SET);
             }
-
             if (strcmp(test_msg, "UPLOAD") == 0 || strcmp(test_msg, "UPDATE") == 0)
             {
                 status = 1;
             }
-
             char send_msg[200];
             sprintf(send_msg, "%s %s\n", test_msg, name_file);
 
@@ -122,9 +120,12 @@ int main(int argc, char *argv[])
             Sleep(1000);
             send(sock, send_buf, strlen(send_buf), 0);
             printf("Da gui lenh: %s", send_msg);
-
+        
             // ===== UPLOAD / UPDATE =====
-            if (status == 1)
+            if (strcmp(test_msg, "DELETE") == 0){         
+                receive(sock);
+            }
+            else if (status == 1)
             {
                 // 1. Chờ server xác nhận READY để tránh dính chùm lệnh và dữ liệu
                 char ack[256];
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
                     }
 
                 }
-                                    receive(sock);
+                receive(sock);
             }
             // ===== DOWNLOAD =====
             else

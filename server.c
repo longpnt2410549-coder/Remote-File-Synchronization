@@ -180,10 +180,9 @@ void compare(char *temp, SOCKET client_fd, int i)
         FILE *fp = fopen(path, "rb");
         if (fp == NULL)
         {
-            write_log(client_fd, "[-] Loi: Khong tim thay file %s.\n", file_name);
-            return;
+            write_log(INVALID_SOCKET, "[-] Loi: Khong tim thay file %s.\n", file_name);
         }
-
+        else{
         fseek(fp, 0, SEEK_END);
         uint32_t file_size = (uint32_t)ftell(fp);
         fseek(fp, 0, SEEK_SET);
@@ -208,6 +207,7 @@ void compare(char *temp, SOCKET client_fd, int i)
         download++;
         write_log(client_fd, "OK\n");
         fclose(fp);
+        }
     }
     // ================= 2. DELETE  =================
     else if (strcmp(request, "DELETE") == 0)
@@ -217,9 +217,9 @@ void compare(char *temp, SOCKET client_fd, int i)
         if (fp == NULL)
         {
             write_log(client_fd, "[-] Loi: Khong tim thay file %s.\n", file_name);
-            return;
+            unchanged++;
         }
-
+        else{
         fclose(fp);
 
         if (remove(path) == 0)
@@ -230,6 +230,8 @@ void compare(char *temp, SOCKET client_fd, int i)
         else
         {
             write_log(client_fd, "[-] Xoa file that bai!\n");
+                        unchanged++;
+        }
         }
     }
     // ================= 3. UPLOAD & UPDATE  =================
@@ -245,8 +247,6 @@ void compare(char *temp, SOCKET client_fd, int i)
             write_log(client_fd, "[-] Khong the tao file tam\n");
             return;
         }
-
-        write_log(client_fd, "[+] Dang nhan file...\n");
 
         char buf[BUFFER_SIZE];
         int bytes;
@@ -267,6 +267,11 @@ void compare(char *temp, SOCKET client_fd, int i)
         struct stat st_new, st_old;
         stat(temp_path, &st_new);
         stat(path, &st_old);
+        if (stat(path, &st_old) != 0) {
+            // file cũ không tồn tại
+            st_old.st_size = -1;
+            st_old.st_mtime = 0;
+        }
         // 3. Xử lý logic nghiệp vụ sau khi đã nhận đủ dữ liệu
         if (find_file(client_fd, file_name)) // Đã tồn tại file trên server
         {
@@ -276,17 +281,16 @@ void compare(char *temp, SOCKET client_fd, int i)
 
                 if (st_new.st_size != st_old.st_size || st_new.st_mtime > st_old.st_mtime)
                 {
-                    delete_file(path, client_fd);
+                    remove(path); // thay vì delete_file()
                     rename(temp_path, path);
                     write_log(client_fd, "[+] Da cap nhat file thanh cong!\n");
                     update++;
                 }
                 else
                 {
-                    write_log(client_fd, "[=] File cu hoac y het -> Bo qua khong cap nhat\n");
+                    write_log(client_fd, "[=] File cu hoac y het -> SKIP\n");
                     delete_file(temp_path, client_fd); // Nhớ xoá file tạm
                 }
-                fclose(fp);
             }
             else // Lệnh UPLOAD nhưng file đã có
             {
@@ -333,6 +337,7 @@ void receive_request(SOCKET client_fd)
     download = 0;
     upload = 0;
     unchanged = 0;
+    delete = 0;
 
     while ((bytes = recv(client_fd, buffer, sizeof(buffer), 0)) > 0)
     {
