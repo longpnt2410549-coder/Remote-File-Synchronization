@@ -10,7 +10,7 @@ This tool synchronizes two directories—one on a Client and one on a Server—o
 
 ---The tool follows a Request-Response model over a persistent TCP connection.---
 
-1. The client and server both scan their respective directories using <dirent.h> and <sys/stat.h>.
+1\. The client and server both scan their respective directories using <dirent.h> and <sys/stat.h>.
 
 
 
