@@ -18,7 +18,7 @@ This tool synchronizes two directories—one on a Client and one on a Server—o
 
 
 
-3\. The server compares the client's list with its own and generates a "Sync Plan" (Uploads, Downloads, Deletions, or Skips).
+3\. The server compares the client's list with its own and generates a "Sync Plan" (Uploads, Downloads, Deletions, Updates or Skips).
 
 
 
