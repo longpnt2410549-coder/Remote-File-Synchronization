@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
         // --- ĐOẠN CODE TEST BẮN DỮ LIỆU ---
         char buffer[1024] = "";
         char line[256];
-        printf("1. UPLOAD \n2. DOWNLOAD\n3. UPDATE \n4. DELETE \n Enter command send to server here: ");
+        printf("1. UPLOAD \n2. DOWNLOAD\n3. UPDATE \n4. DELETE \n");
         printf("Nhap command (Enter 2 lan de gui):\n");
 
         while (1)

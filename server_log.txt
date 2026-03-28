@@ -1,0 +1,376 @@
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPDATE | File: hello.pptx
+
+[+] Da cap nhat file thanh cong!
+Files change: Download 0 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 0 
+
+[YEU CAU 2] UPLOAD | File: test.txt
+
+[-] File da ton tai. Vui long dung lenh UPDATE
+Files change: Download 0 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 3] DELETE | File: test.txt
+
+[+] Da xoa file thanh cong!
+Files change: Download 0 | Upload 0 | Update 1 | Delete 1.
+Files unchanged: 1 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: text.pdf
+
+[+] Hoan tat luu file: text.pdf!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%PDF-1.7)
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%µµµµ)
+
+[YEU CAU 1] 1 | File: 0
+
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[+] Hoan tat luu file: test.txt!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: text.pdf
+
+[-] File da ton tai. Vui long dung lenh UPDATE
+Files change: Download 0 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 1 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%PDF-1.7)
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%µµµµ)
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: hello.pptx
+
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: text.txt
+
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: a.pdf
+
+[+] Hoan tat luu file: a.pdf!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: pp.png
+
+[+] Hoan tat luu file: pp.png!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (‰PNG)
+[-] Loi: Sai cu phap lenh hoac ranh gioi ()
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPDATE | File: text.txt
+
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[-] File da ton tai. Vui long dung lenh UPDATE
+Files change: Download 0 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 2] UPDATE | File: test.txt
+
+[+] Da cap nhat file thanh cong!
+Files change: Download 0 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 3] DOWNLOAD | File: test.txt
+
+[+] Hoan tat lenh DOWNLOAD: test.txt
+OK
+Files change: Download 1 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 1 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] DELETE | File: test.txt
+
+[+] Da xoa file thanh cong!
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[+] Hoan tat luu file: test.txt!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+
+[YEU CAU 2] DELETE | File: test.txt
+
+[+] Da xoa file thanh cong!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 1.
+Files unchanged: 0 
+
+[YEU CAU 3] UPLOAD | File: test.txt
+
+[+] Hoan tat luu file: test.txt!
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%PDF-1.7)
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%ï¿½ï¿½ï¿½ï¿½)
+
+[YEU CAU 3] 1 | File: 0
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+
+[YEU CAU 3] <</Type/Catalog/Pages | File: 2
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (endobj)
+
+[YEU CAU 3] 2 | File: 0
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+
+[YEU CAU 3] <</Type/Pages/Count | File: 6/Kids[
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (endobj)
+
+[YEU CAU 3] 3 | File: 0
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+
+[YEU CAU 3] <</Type/Page/Parent | File: 2
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (endobj)
+
+[YEU CAU 3] 4 | File: 0
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+
+[YEU CAU 3] <</Filter/FlateDecode/Length | File: 3198>>
+
+Files change: Download 0 | Upload 2 | Update 0 | Delete 1.
+Files unchanged: 0 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (stream)
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] DOWNLOAD | File: test.txt
+
+[+] Hoan tat lenh DOWNLOAD: test.txt
+OK
+Files change: Download 1 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] DOWNLOAD | File: test.txt
+
+[+] Hoan tat lenh DOWNLOAD: test.txt
+OK
+Files change: Download 1 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[-] File da ton tai. Vui long dung lenh UPDATE
+Files change: Download 0 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 2] DELETE | File: test.txt
+
+[+] Da xoa file thanh cong!
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 1 
+
+[YEU CAU 3] UPDATE | File: test.txt
+
+[-] File test.txt khong ton tai de UPDATE!!
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%PDF-1.7)
+[-] Loi: Sai cu phap lenh hoac ranh gioi (%ï¿½ï¿½ï¿½ï¿½)
+
+[YEU CAU 3] 1 | File: 0
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+
+[YEU CAU 3] <</Type/Catalog/Pages | File: 2
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (endobj)
+
+[YEU CAU 3] 2 | File: 0
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+
+[YEU CAU 3] <</Type/Pages/Count | File: 6/Kids[
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (endobj)
+
+[YEU CAU 3] 3 | File: 0
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+
+[YEU CAU 3] <</Type/Page/Parent | File: 2
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (endobj)
+
+[YEU CAU 3] 4 | File: 0
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+
+[YEU CAU 3] <</Filter/FlateDecode/Length | File: 3198>>
+
+Files change: Download 0 | Upload 0 | Update 0 | Delete 1.
+Files unchanged: 2 
+[-] Loi: Sai cu phap lenh hoac ranh gioi (stream)
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPDATE | File: test.txt
+
+[-] File test.txt khong ton tai de UPDATE!!
+Files change: Download 0 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 1 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[+] Hoan tat luu file: test.txt!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+
+[YEU CAU 2] UPDATE | File: test.txt
+
+[+] Da cap nhat file thanh cong!
+Files change: Download 0 | Upload 1 | Update 1 | Delete 0.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[-] File da ton tai. Vui long dung lenh UPDATE
+Files change: Download 0 | Upload 0 | Update 0 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 2] UPDATE | File: test.txt
+
+[+] Da cap nhat file thanh cong!
+Files change: Download 0 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 3] DOWNLOAD | File: test.txt
+
+[+] Hoan tat lenh DOWNLOAD: test.txt
+OK
+Files change: Download 1 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 1 
+
+[YEU CAU 4] DELETE | File: test.txt
+
+[+] Da xoa file thanh cong!
+Files change: Download 1 | Upload 0 | Update 1 | Delete 1.
+Files unchanged: 1 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[+] Hoan tat luu file: test.txt!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPDATE | File: test.txt
+
+[+] Da cap nhat file thanh cong!
+Files change: Download 0 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 0 
+
+[YEU CAU 2] DOWNLOAD | File: test.txt
+
+[+] Hoan tat lenh DOWNLOAD: test.txt
+OK
+Files change: Download 1 | Upload 0 | Update 1 | Delete 0.
+Files unchanged: 0 
+
+[YEU CAU 3] DELETE | File: test.txt
+
+[+] Da xoa file thanh cong!
+Files change: Download 1 | Upload 0 | Update 1 | Delete 1.
+Files unchanged: 0 
+Client disconnected
+
+>>> CLIENT CONNECTED! <<<
+
+[YEU CAU 1] UPLOAD | File: test.txt
+
+[+] Hoan tat luu file: test.txt!
+Files change: Download 0 | Upload 1 | Update 0 | Delete 0.
+Files unchanged: 0 
+Client disconnected
